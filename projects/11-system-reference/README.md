@@ -24,5 +24,5 @@ timer ISR → binary semaphore → OLED refresh task
 input task / control task → application state and peripherals
 ```
 
-工程使用 Queue、Binary Semaphore、UART ISR 和多个应用任务形成协作。它作为综合参考资产保留，仓库没有将其描述为个人独立完成的产品，也没有新增实机验证结果。
+工程使用 Queue、Binary Semaphore、UART ISR 和多个应用任务形成协作。仓库将其作为 Integrated Reference Project，分析重点是任务拆分、通信关系和中断协作。
 

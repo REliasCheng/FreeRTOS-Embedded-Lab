@@ -14,5 +14,5 @@
 ISR / task → timer command queue → timer service task → callback
 ```
 
-保留工程的 `FromISR` 调用传入 `NULL`，没有记录由定时器命令触发的即时任务切换测量。
+保留工程的 `FromISR` 调用将 `pxHigherPriorityTaskWoken` 参数设为 `NULL`，因此这条代码路径只提交 Timer Command，不请求基于该参数的即时上下文切换。
 

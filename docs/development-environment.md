@@ -23,16 +23,9 @@
 
 迁移保留 `.uvprojx`、启动文件、链接脚本、BSP、GD32 library、FreeRTOS Kernel 与 `FreeRTOSConfig.h`。`Objects/`、`Listings/`、AXF、HEX、MAP 等构建产物不进入仓库。
 
-## 验证范围
+## 工程检查状态
 
-本地仓库已完成文件完整性、18 个 Keil 工程入口和源码 SHA256 检查。当前环境未提供 `UV4.exe`，因此：
-
-```text
-BUILD_PASS=0
-BUILD_NOT_AUTOMATED=18
-```
-
-这里的“工程完整”只表示工程定义与迁移文件存在，不等同于编译通过。仓库也没有新增板端运行、串口输出或时序测量记录。
+18 个 Keil 工程入口和迁移文件 SHA-256 已核对。当前检查环境未提供 `UV4.exe`，因此没有执行 Keil 命令行构建；构建与板端运行记录需要在对应工具链和硬件环境中产生。
 
 ## 相关内容
 

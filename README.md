@@ -33,7 +33,7 @@
 
 ### 🧩 Memory
 
-主线工程实际采用 `heap_4.c`：支持 Allocation、Free 与相邻空闲块合并。其他 heap 方案未作为独立实践扩展。
+主线工程实际采用 `heap_4.c`，文档对应 Allocation、Free 与相邻空闲块合并机制。
 
 ## 🧠 内核与调度 | Kernel & Scheduling
 

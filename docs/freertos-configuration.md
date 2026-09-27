@@ -20,7 +20,7 @@
 
 ## Time Slicing 与 Tickless
 
-RTE 模板显式配置了部分调度选项；普通主线配置没有在每个文件中显式定义 `configUSE_TIME_SLICING`。Tickless 相关宏只在部分 RTE 配置中出现，仓库没有独立低功耗验证工程，因此不作为核心实践结论。
+RTE 模板显式配置了部分调度选项；普通主线配置并非都显式定义 `configUSE_TIME_SLICING`。Tickless 相关宏只出现在部分 RTE 配置中，本仓库的代表工程不包含独立的 Tickless 低功耗流程。
 
 ## 配置检查路径
 

@@ -9,7 +9,7 @@
 - [`06_FreeRTOS_Mutex_Semaphore`](course/06_FreeRTOS_Mutex_Semaphore/)：普通 Mutex 的取得与释放。
 - [`07_FreeRTOS_RecursiveMutex_Semaphore`](course/07_FreeRTOS_RecursiveMutex_Semaphore/)：同一任务可递归取得的 Mutex。
 
-Mutex 具有任务所有权和 Priority Inheritance 语义；Recursive Mutex 要求取得与释放次数匹配。仓库保留接口实践，没有优先级反转的波形或时间测量数据。
+Mutex 具有任务所有权和 Priority Inheritance 语义；Recursive Mutex 要求取得与释放次数匹配。保留工程聚焦对象创建、取得与释放流程。
 
 详见 [Synchronization](../../docs/synchronization.md)。
 

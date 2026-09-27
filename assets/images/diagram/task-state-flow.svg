@@ -46,7 +46,7 @@
       <text x="660" y="140">delay / wait</text><text x="430" y="94">timeout / event → Ready</text>
       <text x="670" y="283">suspend</text><text x="430" y="382">resume → Ready</text>
       <text x="500" y="435">Tick updates time; priority and wakeup events determine the next Ready task.</text>
-      <text x="500" y="458">Mechanism diagram, not a runtime trace.</text>
+  <text x="500" y="458">State transitions represented by the retained task-management projects.</text>
     </g>
   </g>
 </svg>
