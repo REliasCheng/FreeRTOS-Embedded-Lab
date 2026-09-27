@@ -40,8 +40,9 @@
     <text class="detail" x="425" y="365">xSemaphoreGiveFromISR</text>
     <text class="label" x="685" y="341">Queue</text>
     <text class="detail" x="685" y="365">xQueueSendFromISR</text>
-    <text class="label" x="940" y="341">Timer Command</text>
-    <text class="detail" x="940" y="365">xTimerStart/StopFromISR</text>
+    <text class="label" x="940" y="334">Timer Command</text>
+    <text class="detail" x="940" y="357">xTimerStartFromISR</text>
+    <text class="detail" x="940" y="376">xTimerStopFromISR</text>
     <text class="label" x="550" y="447">Task Ready → Scheduler Decision</text>
     <text class="detail" x="550" y="467">optional portYIELD_FROM_ISR when a higher-priority task is woken</text>
     <g class="line">
