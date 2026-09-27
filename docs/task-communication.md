@@ -1,6 +1,14 @@
 # 任务通信 | Task Communication
 
+> [仓库首页](../README.md) · [同步与互斥](synchronization.md) · [ISR-to-Task](cortex-m-interrupts.md)
+
 不同内核对象解决不同的信息传递问题。选型的关键是：是否需要携带数据、是否需要累计事件，以及接收方是否固定。
+
+| 机制 | 传递内容 | 典型关系 | 对应工程 |
+| --- | --- | --- | --- |
+| Queue | 固定大小的数据项 | producer → buffer → consumer | `08_FreeRTOS_Queue` |
+| Event Group | 多个事件位 | event sources → condition wait | `09_FreeRTOS_EventGroup` |
+| Task Notification | 任务内 32-bit 通知值 | sender → specific task | `10_FreeRTOS_Notify` |
 
 ## Queue
 
@@ -30,4 +38,10 @@ Semaphore 的重点是同步或资源计数，不承载一般消息内容。Queu
 - [Event Groups](../projects/08-event-groups/)
 - [Task Notifications](../projects/09-task-notifications/)
 - [Semaphores](../projects/05-semaphores/)
+
+## 相关内容
+
+- 事件同步与共享资源互斥：[synchronization.md](synchronization.md)
+- UART ISR 向 Queue 传递接收字节：[cortex-m-interrupts.md](cortex-m-interrupts.md)
+- 多任务通信组合：[Integrated Reference Project](../projects/11-system-reference/)
 

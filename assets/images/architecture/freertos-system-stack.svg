@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="650" viewBox="0 0 1000 650" role="img" aria-labelledby="title desc">
+  <title id="title">FreeRTOS system stack on GD32F407VE Cortex-M4</title>
+  <desc id="desc">Five layers connect GD32F407VE Cortex-M4 hardware, Cortex-M exceptions, the FreeRTOS kernel, RTOS services, and embedded application tasks.</desc>
+  <style>
+    .bg { fill: #f6f8fa; }
+    .box { fill: #ffffff; stroke: #52606d; stroke-width: 2; }
+    .accent { fill: #0969da; }
+    .title { fill: #1f2328; font: 600 22px 'Segoe UI', Arial, sans-serif; }
+    .label { fill: #1f2328; font: 600 19px 'Segoe UI', Arial, sans-serif; }
+    .detail { fill: #57606a; font: 15px 'Segoe UI', Arial, sans-serif; }
+    .arrow { stroke: #0969da; stroke-width: 3; fill: none; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .box { fill: #161b22; stroke: #8b949e; }
+      .title, .label { fill: #f0f6fc; }
+      .detail { fill: #b1bac4; }
+      .accent { fill: #58a6ff; }
+      .arrow { stroke: #58a6ff; }
+    }
+  </style>
+  <rect class="bg" width="1000" height="650" rx="18"/>
+  <g text-anchor="middle">
+    <text class="title" x="500" y="42">Cortex-M → FreeRTOS → Embedded Application</text>
+    <g class="box">
+      <rect x="120" y="68" width="760" height="88" rx="10"/>
+      <rect x="120" y="180" width="760" height="88" rx="10"/>
+      <rect x="120" y="292" width="760" height="88" rx="10"/>
+      <rect x="120" y="404" width="760" height="88" rx="10"/>
+      <rect x="120" y="516" width="760" height="88" rx="10"/>
+    </g>
+    <g>
+      <text class="label" x="500" y="103">Embedded Application</text>
+      <text class="detail" x="500" y="132">Tasks · Application Logic · Driver Coordination</text>
+      <text class="label" x="500" y="215">RTOS Services</text>
+      <text class="detail" x="500" y="244">Queue · Semaphore · Mutex · Event Group · Notification · Software Timer</text>
+      <text class="label" x="500" y="327">FreeRTOS Kernel</text>
+      <text class="detail" x="500" y="356">Scheduler · Task State · Priority · Tick · Context Switch · heap_4</text>
+      <text class="label" x="500" y="439">Cortex-M Exception Layer</text>
+      <text class="detail" x="500" y="468">SysTick · PendSV · SVC · NVIC Priority · FromISR Boundary</text>
+      <text class="label" x="500" y="551">GD32F407VE / ARM Cortex-M4</text>
+      <text class="detail" x="500" y="580">Processor · Interrupt Controller · Peripheral Events</text>
+    </g>
+    <g class="arrow">
+      <path d="M500 156v20"/><path d="M500 268v20"/><path d="M500 380v20"/><path d="M500 492v20"/>
+    </g>
+    <g class="accent">
+      <path d="M493 170l7 10 7-10z"/><path d="M493 282l7 10 7-10z"/>
+      <path d="M493 394l7 10 7-10z"/><path d="M493 506l7 10 7-10z"/>
+    </g>
+  </g>
+</svg>
+

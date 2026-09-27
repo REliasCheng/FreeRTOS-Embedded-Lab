@@ -1,5 +1,7 @@
 # 开发环境 | Development Environment
 
+> [仓库首页](../README.md) · [FreeRTOSConfig](freertos-configuration.md) · [工程清单](../projects/)
+
 ## 主线平台
 
 - MCU：GD32F407VE（ARM Cortex-M4）
@@ -23,5 +25,17 @@
 
 ## 验证范围
 
-本地仓库已完成文件完整性、工程入口和源码哈希检查。当前环境未执行 Keil 自动构建，也没有新增板端运行、串口输出或时序测量记录。
+本地仓库已完成文件完整性、18 个 Keil 工程入口和源码 SHA256 检查。当前环境未提供 `UV4.exe`，因此：
+
+```text
+BUILD_PASS=0
+BUILD_NOT_AUTOMATED=18
+```
+
+这里的“工程完整”只表示工程定义与迁移文件存在，不等同于编译通过。仓库也没有新增板端运行、串口输出或时序测量记录。
+
+## 相关内容
+
+- 配置项与内核行为：[freertos-configuration.md](freertos-configuration.md)
+- 所有分组工程：[projects/](../projects/)
 

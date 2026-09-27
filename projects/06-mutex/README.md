@@ -1,5 +1,7 @@
 # 互斥量 | Mutex
 
+> [仓库首页](../../README.md) · 上一模块：[Semaphores](../05-semaphores/) · 下一模块：[Queue](../07-queue/)
+
 该组工程用于保护任务之间共享的资源。
 
 ## 工程

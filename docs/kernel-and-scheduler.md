@@ -1,6 +1,12 @@
 # 内核与调度 | Kernel and Scheduler
 
+> [仓库首页](../README.md) · [任务管理](task-management.md) · [中断与 FreeRTOS](cortex-m-interrupts.md) · [配置关系](freertos-configuration.md)
+
 本仓库的主线工程采用 FreeRTOS V10.5.1。任务不是顺序执行的函数集合，而是由内核维护状态、优先级、栈和调度关系的执行单元。
+
+```text
+Cortex-M exceptions → kernel tick / context switch → task states → application work
+```
 
 ## 任务与 TCB
 
@@ -36,4 +42,10 @@ SysTick 更新内核时基，PendSV 在低异常优先级下完成任务上下�
 - [Task Basics](../projects/01-task-basics/)
 - [Task Scheduling](../projects/02-task-scheduling/)
 - [Interrupt Priority](../projects/03-interrupt-priority/)
+
+## 相关内容
+
+- 任务创建、删除与恢复：[task-management.md](task-management.md)
+- NVIC 和 `FromISR` 边界：[cortex-m-interrupts.md](cortex-m-interrupts.md)
+- Tick、优先级和 heap 配置：[freertos-configuration.md](freertos-configuration.md)
 

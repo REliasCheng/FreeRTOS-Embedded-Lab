@@ -1,30 +1,52 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="900" height="430" viewBox="0 0 900 430" role="img" aria-labelledby="title desc">
-  <title id="title">FreeRTOS task state flow</title>
-  <desc id="desc">Simplified transitions among ready, running, blocked and suspended task states.</desc>
-  <rect width="900" height="430" fill="#10161d" rx="18"/>
-  <g font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">
-    <text x="450" y="45" fill="#d8e2ec" font-size="24" font-weight="600">Task State Flow</text>
-    <g fill="#243746" stroke="#526a7d" stroke-width="2">
-      <rect x="90" y="155" width="160" height="70" rx="12"/>
-      <rect x="370" y="155" width="160" height="70" rx="12"/>
-      <rect x="650" y="70" width="160" height="70" rx="12"/>
-      <rect x="650" y="255" width="160" height="70" rx="12"/>
+<svg xmlns="http://www.w3.org/2000/svg" width="1000" height="500" viewBox="0 0 1000 500" role="img" aria-labelledby="title desc">
+  <title id="title">FreeRTOS task states and scheduler transitions</title>
+  <desc id="desc">Ready, running, blocked and suspended task states connected by scheduling, preemption, delay, event, suspend and resume transitions.</desc>
+  <style>
+    .bg { fill: #f6f8fa; }
+    .box { fill: #ffffff; stroke: #52606d; stroke-width: 2; }
+    .title { fill: #1f2328; font: 600 22px 'Segoe UI', Arial, sans-serif; }
+    .label { fill: #1f2328; font: 600 19px 'Segoe UI', Arial, sans-serif; }
+    .detail { fill: #57606a; font: 13px 'Segoe UI', Arial, sans-serif; }
+    .line { stroke: #0969da; stroke-width: 3; fill: none; }
+    .arrow { fill: #0969da; }
+    @media (prefers-color-scheme: dark) {
+      .bg { fill: #0d1117; }
+      .box { fill: #161b22; stroke: #8b949e; }
+      .title, .label { fill: #f0f6fc; }
+      .detail { fill: #b1bac4; }
+      .line { stroke: #58a6ff; }
+      .arrow { fill: #58a6ff; }
+    }
+  </style>
+  <rect class="bg" width="1000" height="500" rx="18"/>
+  <g text-anchor="middle">
+    <text class="title" x="500" y="46">Task State and Scheduler Flow</text>
+    <g class="box">
+      <rect x="80" y="180" width="180" height="76" rx="11"/>
+      <rect x="410" y="180" width="180" height="76" rx="11"/>
+      <rect x="740" y="80" width="180" height="76" rx="11"/>
+      <rect x="740" y="300" width="180" height="76" rx="11"/>
     </g>
-    <g fill="#e6edf3" font-size="20" font-weight="600">
-      <text x="170" y="198">Ready</text><text x="450" y="198">Running</text>
-      <text x="730" y="113">Blocked</text><text x="730" y="298">Suspended</text>
+    <g class="label">
+      <text x="170" y="225">Ready</text><text x="500" y="225">Running</text>
+      <text x="830" y="125">Blocked</text><text x="830" y="345">Suspended</text>
     </g>
-    <g stroke="#5fa8d3" stroke-width="3" fill="none" marker-end="url(#arrow)">
-      <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#5fa8d3"/></marker></defs>
-      <path d="M250 175h112"/><path d="M370 215H258"/><path d="M530 172L642 120"/>
-      <path d="M650 126L535 177"/><path d="M530 212L642 275"/><path d="M650 287L535 218"/>
+    <g class="line">
+      <path d="M260 202h142"/><path d="M410 242H268"/>
+      <path d="M590 196L732 135"/><path d="M740 143H675V105H170V174"/>
+      <path d="M590 240l142 77"/><path d="M740 331H675V390H170V264"/>
     </g>
-    <g fill="#9fb6c9" font-size="13">
-      <text x="308" y="162">schedule</text><text x="310" y="239">preempt / yield</text>
-      <text x="590" y="124">delay / wait</text><text x="590" y="154">timeout / event</text>
-      <text x="600" y="245">suspend</text><text x="600" y="314">resume</text>
+    <g class="arrow">
+      <path d="M396 195l10 7-10 7z"/><path d="M274 235l-10 7 10 7z"/>
+      <path d="M724 131l11 1-6 9z"/><path d="M163 168l7 10 7-10z"/>
+      <path d="M723 310l11 4-8 7z"/><path d="M163 272l7-10 7 10z"/>
     </g>
-    <text x="450" y="385" fill="#8197a8" font-size="14">Simplified mechanism map; not a runtime trace.</text>
+    <g class="detail">
+      <text x="335" y="188">schedule</text><text x="337" y="270">preempt / yield</text>
+      <text x="660" y="140">delay / wait</text><text x="430" y="94">timeout / event → Ready</text>
+      <text x="670" y="283">suspend</text><text x="430" y="382">resume → Ready</text>
+      <text x="500" y="435">Tick updates time; priority and wakeup events determine the next Ready task.</text>
+      <text x="500" y="458">Mechanism diagram, not a runtime trace.</text>
+    </g>
   </g>
 </svg>
-

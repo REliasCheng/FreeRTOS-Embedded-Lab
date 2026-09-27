@@ -1,5 +1,7 @@
 # 信号量 | Semaphores
 
+> [仓库首页](../../README.md) · 上一模块：[Software Timers](../04-software-timers/) · 下一模块：[Mutex](../06-mutex/)
+
 该组工程使用信号量连接任务事件、ISR 事件和可累计资源。
 
 ## 工程

@@ -1,5 +1,7 @@
 # 中断到任务协作 | ISR-to-Task Communication
 
+> [仓库首页](../../README.md) · 上一模块：[Task Notifications](../09-task-notifications/) · 下一模块：[Integrated Reference](../11-system-reference/)
+
 本目录是跨工程索引，不复制已有源码。相关实现分布在：
 
 - [`07_FreeRTOS_operation2`](../02-task-scheduling/course/07_FreeRTOS_operation2/)：`xTaskResumeFromISR()` + 条件 `portYIELD_FROM_ISR()`；

@@ -1,6 +1,14 @@
 # 同步与资源管理 | Synchronization
 
+> [仓库首页](../README.md) · [任务通信](task-communication.md) · [中断与 FreeRTOS](cortex-m-interrupts.md)
+
 同步回答“事件是否发生”，互斥回答“共享资源当前由谁访问”。虽然 FreeRTOS 的 Semaphore 与 Mutex 共用部分队列机制，它们的工程语义不同。
+
+```text
+event synchronization → Binary / Counting Semaphore
+shared resource       → Mutex / Recursive Mutex
+very short atomic work → Critical Section
+```
 
 ## Binary Semaphore
 
@@ -25,4 +33,9 @@ Recursive Mutex 允许同一任务多次取得同一把锁，但必须匹配次�
 - [Semaphores](../projects/05-semaphores/)
 - [Mutex](../projects/06-mutex/)
 - [Interrupt Collaboration](cortex-m-interrupts.md)
+
+## 相关内容
+
+- Queue、Event Group 与 Task Notification：[task-communication.md](task-communication.md)
+- ISR 释放信号量后的任务唤醒：[cortex-m-interrupts.md](cortex-m-interrupts.md)
 

@@ -1,5 +1,7 @@
 # 任务通知 | Task Notifications
 
+> [仓库首页](../../README.md) · 上一模块：[Event Groups](../08-event-groups/) · 下一模块：[ISR-to-Task](../10-isr-task-communication/)
+
 [`10_FreeRTOS_Notify`](course/10_FreeRTOS_Notify/) 基于 GD32F470ZG 演示直接写入目标任务 TCB 的通知机制。
 
 ## 覆盖内容

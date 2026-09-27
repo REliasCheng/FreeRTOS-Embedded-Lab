@@ -1,6 +1,10 @@
 # 任务管理 | Task Management
 
+> [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md) · [内存管理](memory-management.md)
+
 主线工程将任务生命周期拆成独立步骤，便于观察创建方式、状态迁移和句柄的作用。
+
+![Task state flow](../assets/images/diagram/task-state-flow.svg)
 
 ## 创建
 
@@ -29,4 +33,10 @@
 
 - [动态与静态创建](../projects/01-task-basics/)
 - [任务操作与调度](../projects/02-task-scheduling/)
+
+## 相关内容
+
+- TCB、Tick 与抢占关系：[kernel-and-scheduler.md](kernel-and-scheduler.md)
+- 动态创建对应的 `heap_4.c`：[memory-management.md](memory-management.md)
+- ISR 恢复任务及切换条件：[cortex-m-interrupts.md](cortex-m-interrupts.md)
 

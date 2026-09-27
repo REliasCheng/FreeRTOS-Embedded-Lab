@@ -1,92 +1,129 @@
 # FreeRTOS 实时系统实验室
 ## FreeRTOS Embedded Lab
 
-面向 **GD32F407VE / ARM Cortex-M4** 的 FreeRTOS V10.5.1 实时系统工程，关注任务调度、任务间通信、资源同步和中断到任务的事件传递。
+基于 **GD32F407VE / ARM Cortex-M4** 与 **FreeRTOS V10.5.1**，围绕任务调度、通信同步、中断协作与实时系统结构构建的嵌入式 RTOS 工程仓库。
 
-![FreeRTOS architecture](assets/images/architecture/freertos-stack.svg)
+![FreeRTOS system stack](assets/images/architecture/freertos-system-stack.svg)
+
+**Platform** `GD32F407VE / GD32F470ZG` · **Kernel** `FreeRTOS V10.5.1` · **Toolchain** `Keil MDK-ARM` · **Projects** `17 mainline + 1 reference`
 
 ## 👋 项目简介 | Overview
 
-仓库保留 17 个递进的 Keil 主线工程，并按 RTOS 机制重新建立导航。工程从任务创建和调度出发，继续覆盖 Software Timer、Semaphore、Mutex、Queue、Event Group、Task Notification，以及 ISR 与任务之间的协作。平衡球工程作为多任务综合参考，用于观察任务拆分、通信和外设协同。
+17 个主线 Keil 工程从 Task 创建与调度出发，逐步进入 Software Timer、Semaphore、Mutex、Queue、Event Group、Task Notification 和 ISR-to-Task。工程按 RTOS 机制组织，原始文件保存在各模块的 `course/` 目录；平衡球工程作为多任务综合参考，用于阅读任务拆分、通信和外设协作结构。
 
-主线平台采用 **GD32 Standard Peripheral Library** 与 FreeRTOS Native API。原始工程位于各模块的 `course/` 目录，文件内容通过 SHA256 与迁移源逐项核对。
+这里关注 **Cortex-M 如何支撑 FreeRTOS 调度，以及任务如何通过 IPC 与同步机制组成嵌入式系统**。GPIO、UART、SPI、ADC 等外设基础由前一阶段的 ARM 固件仓库承担。
 
 ## ⚙ 技术范围 | Technical Scope
 
-**Cortex-M Hardware Support**
+### 🧠 Kernel & Scheduling
 
-- SysTick / PendSV / SVC
-- NVIC Priority
-- FreeRTOS interrupt priority boundary
+`Task` · `Priority` · `Ready / Running / Blocked / Suspended` · `Preemption` · `Tick` · `Context Switch`
 
-**FreeRTOS Kernel**
+### 🔄 Communication
 
-- Dynamic / Static Task Creation
-- Priority / Preemption / Tick Delay
-- Task Delete / Suspend / Resume
-- `heap_4.c`
+`Queue` 传递数据，`Event Group` 组合事件状态，`Task Notification` 提供面向指定任务的轻量通知通道。
 
-**RTOS Services**
+### 🔒 Synchronization
 
-- Queue / Event Group / Task Notification
-- Binary / Counting Semaphore
-- Mutex / Recursive Mutex
-- Software Timer
+`Binary Semaphore` · `Counting Semaphore` · `Mutex` · `Recursive Mutex` · `Critical Section`
 
-**Interrupt Collaboration**
+### ⚡ Interrupt Collaboration
 
-- `FromISR` API
-- ISR → Semaphore / Queue / Task Resume
-- `pxHigherPriorityTaskWoken` 与任务切换条件
+`SysTick` · `PendSV` · `SVC` · `NVIC Priority` · `FromISR API` · `ISR-to-Task`
+
+### 🧩 Memory
+
+主线工程实际采用 `heap_4.c`：支持 Allocation、Free 与相邻空闲块合并。其他 heap 方案未作为独立实践扩展。
 
 ## 🧠 内核与调度 | Kernel & Scheduling
 
-`SysTick` 提供内核时基；就绪任务按优先级参与抢占式调度；`PendSV` 承担 Cortex-M 端口的上下文切换。主线配置使用 1 kHz tick、`heap_4.c` 和动态分配，静态任务创建由独立工程演示。
+![Task state and scheduler flow](assets/images/diagram/task-state-flow.svg)
 
-- [内核与调度](docs/kernel-and-scheduler.md)
-- [任务生命周期](docs/task-management.md)
-- [FreeRTOSConfig 配置关系](docs/freertos-configuration.md)
+`SysTick` 提供 1 kHz 内核时基；就绪任务按优先级参与抢占式调度；`PendSV` 在 Cortex-M 端口中完成上下文切换。延时或等待事件的任务进入 Blocked，挂起的任务进入 Suspended，直到对应条件使其重新进入 Ready。
 
-## 🔄 任务通信 | Task Communication
-
-- **Queue**：传递整数或结构体数据，分离生产者与消费者。
-- **Event Group**：用事件位组合多个状态条件。
-- **Task Notification**：直接向指定任务传递计数、位或数值。
-
-详见 [任务通信机制](docs/task-communication.md)。
-
-## 🔒 同步与资源管理 | Synchronization
-
-二值信号量连接事件源与等待任务；计数信号量表示可累计资源；Mutex 与 Recursive Mutex 约束共享资源访问。临界区用于保护短时、不可被调度或中断打断的代码段。
-
-详见 [同步与互斥](docs/synchronization.md) 和 [内存管理](docs/memory-management.md)。
+[内核与调度](docs/kernel-and-scheduler.md) · [任务管理](docs/task-management.md) · [FreeRTOSConfig](docs/freertos-configuration.md)
 
 ## ⚡ 中断与任务协作 | ISR-to-Task
 
-主线工程包含 `xTaskResumeFromISR()`、`xSemaphoreGiveFromISR()`、`xTimerStartFromISR()` / `xTimerStopFromISR()`；综合参考工程还使用 `xQueueSendFromISR()`。这些路径展示了中断只产生事件、任务负责后续处理的结构。
+![ISR-to-task paths](assets/images/diagram/isr-to-task-flow.svg)
 
-详见 [Cortex-M 中断与 FreeRTOS](docs/cortex-m-interrupts.md) 和 [ISR-to-Task 工程索引](projects/10-isr-task-communication/README.md)。
+保留工程包含三类真实路径：
+
+- `xTaskResumeFromISR()` 恢复指定任务，并按返回值决定是否 `portYIELD_FROM_ISR()`；
+- `xSemaphoreGiveFromISR()` 将硬件事件交给等待任务；
+- `xQueueSendFromISR()` 将 UART 接收数据送入任务侧队列。
+
+Software Timer 工程还通过 `xTimerStartFromISR()` / `xTimerStopFromISR()` 向 Timer Service Task 提交命令。各工程是否请求即时切换以源码实际传入的 `pxHigherPriorityTaskWoken` 参数为准。
+
+[Cortex-M 中断边界](docs/cortex-m-interrupts.md) · [ISR-to-Task 工程索引](projects/10-isr-task-communication/)
 
 ## 🚀 核心工程 | Featured Projects
 
-- [Task Basics](projects/01-task-basics/) — FreeRTOS 模板、动态任务和静态任务创建。
-- [Task Scheduling](projects/02-task-scheduling/) — 优先级、删除、挂起、恢复与中断恢复任务。
-- [Interrupt Priority](projects/03-interrupt-priority/) — NVIC 与可调用 FreeRTOS API 的中断优先级边界。
-- [Software Timers](projects/04-software-timers/) — 软件定时器回调及 ISR 控制接口。
-- [Semaphores](projects/05-semaphores/) — 二值/计数信号量与事件同步。
-- [Mutex](projects/06-mutex/) — 普通/递归互斥量与共享资源访问。
-- [Queue](projects/07-queue/) — 基础类型和结构体消息传递。
-- [Event Groups](projects/08-event-groups/) — 多事件位同步。
-- [Task Notifications](projects/09-task-notifications/) — 任务直接通知的多种更新方式。
-- [Integrated Reference Project](projects/11-system-reference/) — Queue、Semaphore、UART ISR 与多任务协作。
+### [Task Management](projects/01-task-basics/)
+
+动态/静态任务创建及任务存储方式。
+
+**Keywords:** `Task` / `TCB` / `Stack` / `heap_4`
+
+### [Scheduler & Task State](projects/02-task-scheduling/)
+
+优先级、Tick 延时、删除、挂起、恢复与中断恢复任务。
+
+**Keywords:** `Scheduler` / `Priority` / `Preemption` / `State`
+
+### [Interrupt Priority](projects/03-interrupt-priority/)
+
+NVIC 优先级与 FreeRTOS 系统调用边界。
+
+**Keywords:** `NVIC` / `configMAX_SYSCALL_INTERRUPT_PRIORITY` / `FromISR`
+
+### [Software Timer](projects/04-software-timers/)
+
+Timer Service Task、回调与 ISR 控制路径。
+
+**Keywords:** `Software Timer` / `Command Queue` / `FromISR`
+
+### [Semaphore & Mutex](projects/05-semaphores/)
+
+事件同步、资源计数和共享资源互斥。
+
+**Keywords:** `Semaphore` / [`Mutex`](projects/06-mutex/) / `Priority Inheritance`
+
+### [Queue, Event & Notification](projects/07-queue/)
+
+任务间数据、事件位与直接通知。
+
+**Keywords:** `Queue` / [`Event Group`](projects/08-event-groups/) / [`Task Notification`](projects/09-task-notifications/)
+
+### [Integrated Reference Project](projects/11-system-reference/)
+
+多任务、Queue、Semaphore、UART ISR 与多外设协作的综合参考结构。
+
+**Keywords:** `Multi-task` / `IPC` / `ISR` / `Driver Coordination`
 
 ## 📂 工程结构 | Repository Structure
 
 ```text
+Task Basics
+    ↓
+Scheduling & Task State
+    ↓
+Interrupt Priority & Software Timer
+    ↓
+Semaphore / Mutex
+    ↓
+Queue / Event Group / Notification
+    ↓
+ISR-to-Task
+    ↓
+Integrated Reference System
+```
+
+```text
 FreeRTOS-Embedded-Lab/
-├── assets/images/              # 架构图、流程图与硬件参考图
-├── docs/                       # 内核、调度、通信、同步和环境说明
-├── projects/                   # 按 RTOS 机制组织的代表工程
+├── assets/images/              # 自绘架构图、机制图与硬件参考图
+├── docs/                       # 调度、通信、同步、中断和配置说明
+├── projects/                   # 17 个主线工程 + 1 个综合参考工程
 │   ├── 01-task-basics/
 │   ├── 02-task-scheduling/
 │   ├── ...
@@ -96,7 +133,7 @@ FreeRTOS-Embedded-Lab/
 └── MIGRATION_HASH_VERIFICATION.csv
 ```
 
-每个包含原始工程的模块使用 `course/` 保存源码；仓库级 README 与 `docs/` 负责解释工程之间的机制关系。
+完整入口见 [`projects/`](projects/)。每个技术模块通过 README 解释机制和工程关系，`course/` 保留迁移工程本体。
 
 ## 🛠 开发环境 | Development Environment
 
@@ -106,18 +143,20 @@ FreeRTOS-Embedded-Lab/
 - Peripheral library：GD32 Standard Peripheral Library
 - RTOS：FreeRTOS V10.5.1
 
-打开模块内的 `.uvprojx` 工程后，按工程声明安装对应 device pack 并选择调试器。详细要求见 [开发环境](docs/development-environment.md)。当前仓库未记录自动化 Keil 构建结果。
+当前环境未提供 `UV4.exe`，18 个工程尚未执行自动化 Keil 构建。工程入口、迁移哈希和 Markdown 资源已经检查；构建与板端运行结果需在对应工具链和硬件环境中单独记录。
+
+详见 [开发环境](docs/development-environment.md)。
 
 ## 📖 技术文档 | Documentation
 
-- [Kernel and Scheduler](docs/kernel-and-scheduler.md)
-- [Task Management](docs/task-management.md)
-- [Cortex-M Interrupts](docs/cortex-m-interrupts.md)
-- [Task Communication](docs/task-communication.md)
-- [Synchronization](docs/synchronization.md)
-- [Memory Management](docs/memory-management.md)
-- [FreeRTOS Configuration](docs/freertos-configuration.md)
-- [Development Environment](docs/development-environment.md)
+- [Kernel and Scheduler](docs/kernel-and-scheduler.md) — Task 状态、Tick 与上下文切换
+- [Task Management](docs/task-management.md) — 创建、删除、挂起与恢复
+- [Cortex-M Interrupts](docs/cortex-m-interrupts.md) — 异常、NVIC 与 `FromISR` 边界
+- [Task Communication](docs/task-communication.md) — Queue、Event Group 与 Notification
+- [Synchronization](docs/synchronization.md) — Semaphore、Mutex 与 Critical Section
+- [Memory Management](docs/memory-management.md) — `heap_4.c` 与静态任务资源
+- [FreeRTOS Configuration](docs/freertos-configuration.md) — 配置项、内核行为与工程影响
+- [Development Environment](docs/development-environment.md) — 平台、工程入口与验证状态
 
 ## 📜 来源与许可 | License
 

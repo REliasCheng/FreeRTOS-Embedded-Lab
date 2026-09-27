@@ -1,5 +1,7 @@
 # 事件组 | Event Groups
 
+> [仓库首页](../../README.md) · 上一模块：[Queue](../07-queue/) · 下一模块：[Task Notifications](../09-task-notifications/)
+
 [`09_FreeRTOS_EventGroup`](course/09_FreeRTOS_EventGroup/) 使用事件位表达并组合多个任务条件。
 
 ## 数据关系

@@ -1,5 +1,7 @@
 # 软件定时器 | Software Timers
 
+> [仓库首页](../../README.md) · 上一模块：[Interrupt Priority](../03-interrupt-priority/) · 下一模块：[Semaphores](../05-semaphores/)
+
 [`02_FreeRTOS_timer`](course/02_FreeRTOS_timer/) 创建软件定时器并通过 Timer Service Task 执行回调。
 
 ## 实现

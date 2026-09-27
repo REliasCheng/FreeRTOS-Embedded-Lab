@@ -1,5 +1,7 @@
 # Cortex-M 中断与 FreeRTOS | Interrupts and FreeRTOS
 
+> [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md) · [ISR-to-Task 工程索引](../projects/10-isr-task-communication/)
+
 FreeRTOS 的 Cortex-M 端口建立在异常、NVIC 优先级和任务栈切换机制之上。这里关注硬件机制如何为实时调度服务，不重复 GPIO、UART 等外设基础配置。
 
 ## 异常分工
@@ -35,7 +37,7 @@ SVC 用于从线程模式进入特权服务并启动首个任务。端口层通�
 
 ![ISR-to-task flow](../assets/images/diagram/isr-to-task-flow.svg)
 
-完整的即时切换模式是：
+典型的即时切换模式是：
 
 ```c
 BaseType_t task_woken = pdFALSE;
@@ -56,4 +58,9 @@ portYIELD_FROM_ISR(task_woken);
 - [Interrupt Priority](../projects/03-interrupt-priority/)
 - [ISR-to-Task Index](../projects/10-isr-task-communication/)
 - [Integrated Reference Project](../projects/11-system-reference/)
+
+## 相关内容
+
+- `configKERNEL_INTERRUPT_PRIORITY` 与系统调用边界：[freertos-configuration.md](freertos-configuration.md)
+- Queue、Event Group 和 Task Notification：[task-communication.md](task-communication.md)
 

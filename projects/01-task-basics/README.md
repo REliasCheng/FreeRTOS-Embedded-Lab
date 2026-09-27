@@ -1,5 +1,7 @@
 # 任务基础 | Task Basics
 
+> [仓库首页](../../README.md) · 下一模块：[Task Scheduling](../02-task-scheduling/)
+
 四个工程建立 GD32F407VE FreeRTOS 基线，并比较动态与静态任务创建。
 
 ## 工程

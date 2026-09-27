@@ -1,5 +1,7 @@
 # 多任务综合参考工程 | Integrated Reference Project
 
+> [仓库首页](../../README.md) · 上一模块：[ISR-to-Task](../10-isr-task-communication/)
+
 [`FreeRTOS_GD32_BalanceBall`](course/FreeRTOS_GD32_BalanceBall/) 是配套的平衡球参考工程，用于阅读多任务、多外设和中断协作的系统组织方式。
 
 ## 任务拆分

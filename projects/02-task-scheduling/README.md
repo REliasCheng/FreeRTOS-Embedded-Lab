@@ -1,5 +1,7 @@
 # 任务调度 | Task Scheduling
 
+> [仓库首页](../../README.md) · 上一模块：[Task Basics](../01-task-basics/) · 下一模块：[Interrupt Priority](../03-interrupt-priority/)
+
 该组工程围绕任务优先级、生命周期和状态迁移组织。
 
 ## 工程

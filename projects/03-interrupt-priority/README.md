@@ -1,5 +1,7 @@
 # 中断优先级 | Interrupt Priority
 
+> [仓库首页](../../README.md) · 上一模块：[Task Scheduling](../02-task-scheduling/) · 下一模块：[Software Timers](../04-software-timers/)
+
 [`01_FreeRTOS_interrupt`](course/01_FreeRTOS_interrupt/) 连接 Cortex-M NVIC 优先级和 FreeRTOS 可调用中断 API 的边界。
 
 ## 关键关系

@@ -1,5 +1,7 @@
 # 队列 | Queue
 
+> [仓库首页](../../README.md) · 上一模块：[Mutex](../06-mutex/) · 下一模块：[Event Groups](../08-event-groups/)
+
 [`08_FreeRTOS_Queue`](course/08_FreeRTOS_Queue/) 创建两个队列，分别传递 `uint32_t` 和结构体数据。
 
 ## 数据流
