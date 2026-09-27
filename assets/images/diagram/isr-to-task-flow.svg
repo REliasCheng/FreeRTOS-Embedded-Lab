@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="960" height="310" viewBox="0 0 960 310" role="img" aria-labelledby="title desc">
+  <title id="title">ISR to task event flow</title>
+  <desc id="desc">Interrupt handler calls a FromISR API, unblocks a task and may request a context switch.</desc>
+  <rect width="960" height="310" fill="#10161d" rx="18"/>
+  <g font-family="Segoe UI, Arial, sans-serif" text-anchor="middle">
+    <text x="480" y="43" fill="#d8e2ec" font-size="24" font-weight="600">ISR-to-Task Event Flow</text>
+    <g fill="#243746" stroke="#526a7d" stroke-width="2">
+      <rect x="45" y="105" width="170" height="80" rx="11"/><rect x="270" y="105" width="190" height="80" rx="11"/>
+      <rect x="515" y="105" width="180" height="80" rx="11"/><rect x="750" y="105" width="165" height="80" rx="11"/>
+    </g>
+    <g fill="#e6edf3" font-size="18" font-weight="600">
+      <text x="130" y="140">Peripheral IRQ</text><text x="365" y="140">FromISR API</text>
+      <text x="605" y="140">Task Ready</text><text x="832" y="140">Task Running</text>
+    </g>
+    <g fill="#9fb6c9" font-size="13">
+      <text x="130" y="164">NVIC enters ISR</text><text x="365" y="164">queue / semaphore / resume</text>
+      <text x="605" y="164">event unblocks task</text><text x="832" y="164">after scheduling</text>
+    </g>
+    <g stroke="#5fa8d3" stroke-width="3" fill="none" marker-end="url(#arrow)">
+      <defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#5fa8d3"/></marker></defs>
+      <path d="M215 145h47"/><path d="M460 145h47"/><path d="M695 145h47"/>
+    </g>
+    <text x="480" y="232" fill="#9fb6c9" font-size="15">If a higher-priority task is woken: pxHigherPriorityTaskWoken → portYIELD_FROM_ISR()</text>
+    <text x="480" y="262" fill="#8197a8" font-size="13">Several preserved examples pass NULL; see cortex-m-interrupts.md for the exact source behavior.</text>
+  </g>
+</svg>

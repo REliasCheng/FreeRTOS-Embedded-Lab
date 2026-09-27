@@ -1,0 +1,31 @@
+# Keil build output
+Objects/
+Listings/
+Debug/
+Release/
+RTE/_Build/
+
+*.o
+*.obj
+*.axf
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.d
+*.dep
+*.bak
+*.tmp
+*.log
+*.crf
+*.htm
+*.html
+
+# IDE and operating-system state
+*.uvguix.*
+*.uvoptx
+.DS_Store
+Thumbs.db
+Desktop.ini
+
