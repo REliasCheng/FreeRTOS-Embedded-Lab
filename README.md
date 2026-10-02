@@ -2,13 +2,9 @@
 
 基于 GD32F407VE / ARM Cortex-M4 与 FreeRTOS V10.5.1 的嵌入式系统工程实践仓库，重点展示任务调度、进程间通信、同步机制和中断到任务的数据路径。
 
-## Overview
+![Interrupt-to-application path](assets/images/architecture/portfolio-overview.svg)
 
-仓库围绕 FreeRTOS 的任务生命周期、优先级调度、Software Timer、Queue、Event Group、Task Notification、Semaphore、Mutex 和 ISR-to-Task 协作组织独立工程。
-
-这些工程用于分析 RTOS 机制如何进入嵌入式软件结构：应用被拆分为任务，任务通过 IPC 和同步原语交换状态，硬件事件通过受约束的 `FromISR` 接口交给任务处理。仓库不据此声明确定性性能、线程安全保证或生产级实时能力。
-
-## Platform & Technology
+## Project Snapshot
 
 | Field | Value |
 | --- | --- |
@@ -17,6 +13,14 @@
 | Toolchain | Keil MDK-ARM, GigaDevice GD32F4xx DFP |
 | Architecture | FreeRTOS V10.5.1, task scheduling, IPC, synchronization, ISR-to-task |
 | Verification | Source and configuration review; build and hardware status are listed below |
+
+> **Project status:** Architecture documented · Host Test not applicable · Build, hardware, and runtime evidence not provided
+
+## Overview
+
+仓库围绕 FreeRTOS 的任务生命周期、优先级调度、Software Timer、Queue、Event Group、Task Notification、Semaphore、Mutex 和 ISR-to-Task 协作组织独立工程。
+
+这些工程用于分析 RTOS 机制如何进入嵌入式软件结构：应用被拆分为任务，任务通过 IPC 和同步原语交换状态，硬件事件通过受约束的 `FromISR` 接口交给任务处理。仓库不据此声明确定性性能、线程安全保证或生产级实时能力。
 
 ## Architecture
 
