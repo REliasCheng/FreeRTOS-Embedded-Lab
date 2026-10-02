@@ -15,7 +15,7 @@
 | Language | C |
 | Platform | GD32F407VE / GD32F470ZG, ARM Cortex-M4 |
 | Toolchain | Keil MDK-ARM, GigaDevice GD32F4xx DFP |
-| Architecture | FreeRTOS V10.5.1, task scheduling, IPC, synchronization, ISR-to-Task |
+| Architecture | FreeRTOS V10.5.1, task scheduling, IPC, synchronization, ISR-to-task |
 | Verification | Source and configuration review; build and hardware status are listed below |
 
 ## Architecture
@@ -71,10 +71,10 @@ FreeRTOS-Embedded-Lab/
 
 | Verification Type | Status | Boundary |
 | --- | --- | --- |
-| Host Test | N/A | 仓库没有独立的 Host Test 入口 |
-| Build Verification | NOT VERIFIED | Keil 工程定义存在，但仓库未提供与当前公开版本对应的可复现构建记录 |
-| Hardware Validation | NOT VERIFIED | 仓库未提供可复核的 GD32F407VE / GD32F470ZG 板端验证记录 |
-| Runtime Evidence | NOT INCLUDED | 仓库未提供运行日志、调度时序、延迟测量或性能测试结果 |
+| Host Test | Not Applicable | 仓库没有独立的 Host Test 入口 |
+| Build Verification | Not Provided | Keil 工程定义存在，但仓库未提供与当前公开版本对应的可复现构建记录 |
+| Hardware Validation | Not Provided | 仓库未提供可复核的 GD32F407VE / GD32F470ZG 板端验证记录 |
+| Runtime Evidence | Not Provided | 仓库未提供运行日志、调度时序、延迟测量或性能测试结果 |
 
 源码和工程配置存在，不等同于构建成功、硬件验证通过或获得确定性性能保证。
 
