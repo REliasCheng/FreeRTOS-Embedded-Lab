@@ -69,12 +69,21 @@ FreeRTOS-Embedded-Lab/
 
 ## Verification
 
-| Verification Type | Status | Boundary |
-| --- | --- | --- |
-| Host Test | Not Applicable | 仓库没有独立的 Host Test 入口 |
-| Build Verification | Not Provided | Keil 工程定义存在，但仓库未提供与当前公开版本对应的可复现构建记录 |
-| Hardware Validation | Not Provided | 仓库未提供可复核的 GD32F407VE / GD32F470ZG 板端验证记录 |
-| Runtime Evidence | Not Provided | 仓库未提供运行日志、调度时序、延迟测量或性能测试结果 |
+### Host Test
+
+**Status:** Not Applicable. 仓库没有独立的 Host Test 入口。
+
+### Build Verification
+
+**Status:** Not Provided. Keil 工程定义存在，但仓库未提供与当前公开版本对应的可复现构建记录。
+
+### Hardware Validation
+
+**Status:** Not Provided. 仓库未提供可复核的 GD32F407VE / GD32F470ZG 板端验证记录。
+
+### Runtime Evidence
+
+**Status:** Not Provided. 仓库未提供运行日志、调度时序、延迟测量或性能测试结果。
 
 源码和工程配置存在，不等同于构建成功、硬件验证通过或获得确定性性能保证。
 
