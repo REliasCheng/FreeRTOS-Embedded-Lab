@@ -18,13 +18,13 @@
 
 > 📨 **Evidence:** Kernel interaction paths documented · Build, hardware, timing, and runtime evidence not provided
 
-## Overview
+## 📌 Overview
 
 仓库围绕 FreeRTOS 的任务生命周期、优先级调度、Software Timer、Queue、Event Group、Task Notification、Semaphore、Mutex 和 ISR-to-task 协作组织独立工程。
 
 这些工程用于分析 RTOS 机制如何进入嵌入式软件结构：应用被拆分为任务，任务通过 IPC 和同步原语交换状态，硬件事件通过受约束的 `FromISR` 接口交给任务处理。仓库不据此声明确定性性能、线程安全保证或生产级实时能力。
 
-## Architecture
+## 🏗️ Architecture
 
 ![FreeRTOS system stack](assets/images/architecture/freertos-system-stack.svg)
 
@@ -34,7 +34,7 @@
 
 硬件事件进入 ISR 后，只执行必要的状态确认和数据搬运，再通过 `FromISR` API 唤醒任务或提交消息。是否触发即时上下文切换，以对应源码传入的 `pxHigherPriorityTaskWoken` 和返回值为准。
 
-## Key Features
+## ✨ Key Features
 
 | Capability | Implementation Entry |
 | --- | --- |
@@ -45,7 +45,7 @@
 | Interrupt-driven workflow | [ISR-to-Task Communication](projects/10-isr-task-communication/) 展示 Resume、Semaphore、Queue 和 Software Timer 的中断协作路径 |
 | Embedded application structure | [System Reference](projects/11-system-reference/) 作为多任务、IPC、UART ISR 和外设协作的结构参考 |
 
-## Project Structure
+## 📂 Project Structure
 
 ```text
 FreeRTOS-Embedded-Lab/
@@ -64,7 +64,7 @@ FreeRTOS-Embedded-Lab/
 └── assets/images/                        # 已有架构与机制图
 ```
 
-## Documentation
+## 📚 Documentation
 
 - [Kernel and Scheduler](docs/kernel-and-scheduler.md)
 - [Task Management](docs/task-management.md)
@@ -75,21 +75,21 @@ FreeRTOS-Embedded-Lab/
 - [FreeRTOS Configuration](docs/freertos-configuration.md)
 - [Development Environment](docs/development-environment.md)
 
-## Verification
+## 🧪 Verification
 
-### Host Test
+### 💻 Host Test
 
 **Status:** Not Applicable. 仓库没有独立的 Host Test 入口。
 
-### Build Verification
+### 🔨 Build Verification
 
 **Status:** Not Provided. Keil 工程定义存在，但仓库未提供与当前公开版本对应的可复现构建记录。
 
-### Hardware Validation
+### 🔌 Hardware Validation
 
 **Status:** Not Provided. 仓库未提供可复核的 GD32F407VE / GD32F470ZG 板端验证记录。
 
-### Runtime Evidence
+### 📊 Runtime Evidence
 
 **Status:** Not Provided. 仓库未提供运行日志、调度时序、延迟测量或性能测试结果。
 
