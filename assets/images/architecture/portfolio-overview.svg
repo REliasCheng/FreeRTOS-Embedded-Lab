@@ -1,32 +1,13 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="360" viewBox="0 0 1200 360" role="img" aria-labelledby="title desc">
-  <title id="title">Interrupt-to-application path</title>
-  <desc id="desc">Hardware events cross an ISR boundary into FreeRTOS services, tasks, and application behavior.</desc>
-  <defs>
-    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8b949e"/></marker>
-    <style>
-      .bg{fill:#0d1117}.grid{stroke:#30363d;stroke-width:1;opacity:.35}.box{stroke-width:2}.input{fill:#21262d;stroke:#8b949e}.core{fill:#0d419d;stroke:#58a6ff}.hardware{fill:#1f6f3d;stroke:#3fb950}.output{fill:#f0f6fc;stroke:#c9d1d9}.title{font:700 27px system-ui,sans-serif;fill:#f0f6fc}.subtitle{font:16px system-ui,sans-serif;fill:#8b949e}.label{font:700 17px system-ui,sans-serif;fill:#f0f6fc;text-anchor:middle}.detail{font:13px system-ui,sans-serif;fill:#c9d1d9;text-anchor:middle}.dark{fill:#0d1117}.arrow{stroke:#8b949e;stroke-width:3;marker-end:url(#arrow)}.footer{font:14px system-ui,sans-serif;fill:#8b949e;text-anchor:middle}
-    </style>
-  </defs>
-  <rect class="bg" width="1200" height="360" rx="22"/>
-  <path class="grid" d="M0 90H1200M0 270H1200M240 0V360M480 0V360M720 0V360M960 0V360"/>
-  <text class="title" x="50" y="54">Interrupt-to-application path</text>
-  <text class="subtitle" x="50" y="84">ISR boundary · kernel · IPC · task design</text>
-  <rect class="box input" x="50" y="140" width="180" height="92" rx="14"/>
-  <text class="label" x="140" y="177">ISR / Event</text>
-  <text class="detail" x="140" y="205">FromISR API</text>
-  <rect class="box core" x="280" y="140" width="180" height="92" rx="14"/>
-  <text class="label" x="370" y="177">RTOS Kernel</text>
-  <text class="detail" x="370" y="205">scheduler</text>
-  <rect class="box core" x="510" y="140" width="180" height="92" rx="14"/>
-  <text class="label" x="600" y="177">IPC / Sync</text>
-  <text class="detail" x="600" y="205">queue / event</text>
-  <rect class="box hardware" x="740" y="140" width="180" height="92" rx="14"/>
-  <text class="label" x="830" y="177">Task</text>
-  <text class="detail" x="830" y="205">state owner</text>
-  <rect class="box output" x="970" y="140" width="180" height="92" rx="14"/>
-  <text class="label dark" x="1060" y="177">Application</text>
-  <text class="detail dark" x="1060" y="205">behavior</text>
-  <path class="arrow" d="M230 186H270"/><path class="arrow" d="M460 186H500"/><path class="arrow" d="M690 186H730"/><path class="arrow" d="M920 186H960"/>
-  <text class="footer" x="600" y="305">The diagram expresses software structure, not deterministic performance or production readiness.</text>
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="450" viewBox="0 0 1200 450" role="img" aria-labelledby="title desc">
+  <title id="title">FreeRTOS ISR-to-task execution model</title><desc id="desc">A hardware event enters an ISR, crosses a FromISR API boundary into synchronization primitives, wakes a task, and updates application state.</desc>
+  <defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#8b949e"/></marker><style>.bg{fill:#0d1117}.grid{stroke:#30363d;opacity:.28}.box{stroke-width:2}.input{fill:#21262d;stroke:#8b949e}.core{fill:#0d419d;stroke:#58a6ff}.hardware{fill:#1f6f3d;stroke:#3fb950}.output{fill:#f0f6fc;stroke:#c9d1d9}.title{font:700 28px system-ui,sans-serif;fill:#f0f6fc}.sub{font:16px system-ui,sans-serif;fill:#8b949e}.label{font:700 16px system-ui,sans-serif;fill:#f0f6fc;text-anchor:middle}.detail{font:13px system-ui,sans-serif;fill:#c9d1d9;text-anchor:middle}.dark{fill:#0d1117}.arrow{fill:none;stroke:#8b949e;stroke-width:3;marker-end:url(#arrow)}</style></defs>
+  <rect class="bg" width="1200" height="450" rx="22"/><path class="grid" d="M0 105H1200M0 350H1200M300 0V450M600 0V450M900 0V450"/>
+  <text class="title" x="70" y="52">FreeRTOS ISR-to-task Flow</text><text class="sub" x="70" y="82">Hardware event · ISR boundary · FromISR API · IPC / synchronization · task wake-up</text>
+  <rect class="box input" x="45" y="135" width="180" height="84" rx="14"/><text class="label" x="135" y="169">Hardware Event</text><text class="detail" x="135" y="196">interrupt source</text>
+  <rect class="box hardware" x="285" y="135" width="180" height="84" rx="14"/><text class="label" x="375" y="169">ISR</text><text class="detail" x="375" y="196">bounded work</text>
+  <rect class="box core" x="525" y="135" width="180" height="84" rx="14"/><text class="label" x="615" y="169">FromISR API</text><text class="detail" x="615" y="196">yield decision</text>
+  <rect class="box core" x="525" y="285" width="220" height="84" rx="14"/><text class="label" x="635" y="319">Queue / Semaphore</text><text class="detail" x="635" y="346">notification · sync</text>
+  <rect class="box core" x="805" y="285" width="160" height="84" rx="14"/><text class="label" x="885" y="319">Task</text><text class="detail" x="885" y="346">wake-up</text>
+  <rect class="box output" x="1015" y="285" width="150" height="84" rx="14"/><text class="label dark" x="1090" y="319">App State</text><text class="detail dark" x="1090" y="346">behavior</text>
+  <path class="arrow" d="M225 177H285M465 177H525M615 219V285M745 327H805M965 327H1015"/>
 </svg>
-

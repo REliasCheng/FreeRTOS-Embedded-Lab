@@ -1,24 +1,26 @@
 # FreeRTOS-Embedded-Lab
 
-基于 GD32F407VE / ARM Cortex-M4 与 FreeRTOS V10.5.1 的嵌入式系统工程实践仓库，重点展示任务调度、进程间通信、同步机制和中断到任务的数据路径。
+基于 GD32F407VE / ARM Cortex-M4 与 FreeRTOS V10.5.1 的嵌入式系统工程实践仓库，重点展示任务调度、任务间通信、同步机制和 ISR-to-task 数据路径。
+
+**🧵 Execution Model**
 
 ![Interrupt-to-application path](assets/images/architecture/portfolio-overview.svg)
 
-## Project Snapshot
+## Execution Snapshot
 
-| Field | Value |
+| RTOS Focus | Current Scope |
 | --- | --- |
-| Language | C |
-| Platform | GD32F407VE / GD32F470ZG, ARM Cortex-M4 |
-| Toolchain | Keil MDK-ARM, GigaDevice GD32F4xx DFP |
-| Architecture | FreeRTOS V10.5.1, task scheduling, IPC, synchronization, ISR-to-task |
-| Verification | Source and configuration review; build and hardware status are listed below |
+| MCU / Kernel | GD32F407VE / GD32F470ZG、ARM Cortex-M4、FreeRTOS V10.5.1 |
+| Execution Model | Priority scheduling、task states、Software Timer |
+| IPC Model | Queue、Semaphore、Mutex、Event Group、Task Notification |
+| Interrupt Boundary | ISR → `FromISR` API → task wake-up |
+| Evidence | Source and configuration review；build, hardware and runtime evidence not provided |
 
-> **Project status:** Architecture documented · Host Test not applicable · Build, hardware, and runtime evidence not provided
+> 📨 **Evidence:** Kernel interaction paths documented · Build, hardware, timing, and runtime evidence not provided
 
 ## Overview
 
-仓库围绕 FreeRTOS 的任务生命周期、优先级调度、Software Timer、Queue、Event Group、Task Notification、Semaphore、Mutex 和 ISR-to-Task 协作组织独立工程。
+仓库围绕 FreeRTOS 的任务生命周期、优先级调度、Software Timer、Queue、Event Group、Task Notification、Semaphore、Mutex 和 ISR-to-task 协作组织独立工程。
 
 这些工程用于分析 RTOS 机制如何进入嵌入式软件结构：应用被拆分为任务，任务通过 IPC 和同步原语交换状态，硬件事件通过受约束的 `FromISR` 接口交给任务处理。仓库不据此声明确定性性能、线程安全保证或生产级实时能力。
 
@@ -27,6 +29,8 @@
 ![FreeRTOS system stack](assets/images/architecture/freertos-system-stack.svg)
 
 应用任务承载业务状态和外设协作；Queue、Semaphore、Mutex、Event Group、Task Notification 与 Software Timer 提供通信和同步；FreeRTOS Kernel 管理任务状态、优先级、Tick 与上下文切换；Cortex-M 的 SysTick、PendSV、SVC 和 NVIC 形成调度与中断边界。
+
+### ISR-to-task Handoff
 
 硬件事件进入 ISR 后，只执行必要的状态确认和数据搬运，再通过 `FromISR` API 唤醒任务或提交消息。是否触发即时上下文切换，以对应源码传入的 `pxHigherPriorityTaskWoken` 和返回值为准。
 
@@ -54,7 +58,7 @@ FreeRTOS-Embedded-Lab/
 ├── projects/07-queue/                    # Queue 数据通信
 ├── projects/08-event-groups/             # 事件位组合
 ├── projects/09-task-notifications/       # 直接任务通知
-├── projects/10-isr-task-communication/   # ISR-to-Task 路径
+├── projects/10-isr-task-communication/   # ISR-to-task 路径
 ├── projects/11-system-reference/         # 综合结构参考
 ├── docs/                                 # 调度、IPC、同步和中断文档
 └── assets/images/                        # 已有架构与机制图
