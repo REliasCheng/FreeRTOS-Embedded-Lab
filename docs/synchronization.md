@@ -12,27 +12,21 @@ very short atomic work → Critical Section
 
 ## Binary Semaphore
 
-二值信号量只有可用/不可用两个状态。主线工程包含任务间释放与获取，也包含 ISR 调用 `xSemaphoreGiveFromISR()` 唤醒等待任务的路径。
+二值信号量只有可用/不可用两个状态。设计时需要分别处理任务间释放/获取和 ISR 使用 `FromISR` API 唤醒等待任务的路径。
 
 ## Counting Semaphore
 
-计数信号量维护 0 到最大值之间的计数，可表示可用资源数量或累计事件次数。`05_FreeRTOS_Counting_Semaphore` 以最大值 5、初始值 3 创建对象。
+计数信号量维护 0 到最大值之间的计数，可表示可用资源数量或累计事件次数。最大值和初始值必须由资源模型确定。
 
 ## Mutex 与 Recursive Mutex
 
 Mutex 用于保护共享资源，并具有面向任务所有权的语义。FreeRTOS Mutex 支持 Priority Inheritance，降低低优先级任务持锁时阻塞高优先级任务造成的优先级反转影响。
 
-Recursive Mutex 允许同一任务多次取得同一把锁，但必须匹配次数释放。对应工程演示对象创建和递归访问结构；仓库没有优先级反转时序测量记录。
+Recursive Mutex 允许同一任务多次取得同一把锁，但必须匹配次数释放。当前仓库没有实现或优先级反转时序测量记录。
 
 ## Critical Section
 
 临界区通过短时间屏蔽可受内核管理的中断来保护极短代码段。它不适合包围可能阻塞或耗时的处理。任务级资源长期互斥应优先使用 Mutex。
-
-## 对应工程
-
-- [Semaphores](../projects/05-semaphores/)
-- [Mutex](../projects/06-mutex/)
-- [Interrupt Collaboration](cortex-m-interrupts.md)
 
 ## 相关内容
 

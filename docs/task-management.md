@@ -2,13 +2,13 @@
 
 > [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md) · [内存管理](memory-management.md)
 
-主线工程将任务生命周期拆成独立步骤，便于观察创建方式、状态迁移和句柄的作用。
+本文将任务生命周期拆成独立步骤，便于理解创建方式、状态迁移和句柄的作用。当前默认分支不包含实现工程。
 
 ![Task state flow](../assets/images/diagram/task-state-flow.svg)
 
 ## 创建
 
-`03_FreeRTOS_create_task` 使用 `xTaskCreate()`，栈和 TCB 由 FreeRTOS heap 分配；`04_FreeRTOS_create_task_static` 使用 `xTaskCreateStatic()`，由应用提供任务栈和 `StaticTask_t`。
+`xTaskCreate()` 由 FreeRTOS heap 分配栈和 TCB；`xTaskCreateStatic()` 则由应用提供任务栈和 `StaticTask_t`。
 
 两种方式产生相同的调度对象，区别在于存储由谁提供和生命周期如何管理。
 
@@ -19,20 +19,15 @@
 - `vTaskResume()` 从任务上下文恢复任务。
 - `xTaskResumeFromISR()` 从中断上下文恢复任务，并返回是否需要切换到更高优先级任务。
 
-`07_FreeRTOS_operation2` 同时包含任务侧恢复和 ISR 恢复路径，并在 `xTaskResumeFromISR()` 返回真时调用 `portYIELD_FROM_ISR()`。
+从 ISR 恢复任务时，应检查返回值并按端口规则决定是否调用 `portYIELD_FROM_ISR()`。
 
 ## 延时与周期任务
 
-主线应用使用 `vTaskDelay()` 产生相对延时；保留的代表工程没有使用 `vTaskDelayUntil()` 构造固定相位的周期任务。
+`vTaskDelay()` 产生相对延时；固定相位的周期任务通常需要评估 `vTaskDelayUntil()` 或等价策略。
 
 ## 优先级
 
-工程在创建任务时传入固定优先级，用于观察高优先级任务就绪后的抢占关系。运行时优先级调整不在保留工程的主线中。
-
-## 代码入口
-
-- [动态与静态创建](../projects/01-task-basics/)
-- [任务操作与调度](../projects/02-task-scheduling/)
+任务创建时需要明确优先级，并评估高优先级任务就绪后的抢占关系。当前仓库没有运行时优先级调整的实现证据。
 
 ## 相关内容
 

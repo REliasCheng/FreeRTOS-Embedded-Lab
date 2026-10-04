@@ -1,6 +1,6 @@
 # Cortex-M 中断与 FreeRTOS | Interrupts and FreeRTOS
 
-> [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md) · [ISR-to-Task 工程索引](../projects/10-isr-task-communication/)
+> [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md)
 
 FreeRTOS 的 Cortex-M 端口建立在异常、NVIC 优先级和任务栈切换机制之上。这里关注硬件机制如何为实时调度服务，不重复 GPIO、UART 等外设基础配置。
 
@@ -45,19 +45,7 @@ BaseType_t task_woken = pdFALSE;
 portYIELD_FROM_ISR(task_woken);
 ```
 
-保留源码中的实现并不完全相同：
-
-- `07_FreeRTOS_operation2` 使用 `xTaskResumeFromISR()` 并检查返回值，再调用 `portYIELD_FROM_ISR()`；
-- Semaphore、Software Timer 和平衡球参考工程的若干 `FromISR` 调用传入 `NULL`，因此未请求基于 `pxHigherPriorityTaskWoken` 的即时切换；
-- 平衡球的 UART 接收路径使用 `xQueueSendFromISR()` 将字节送入接收队列。
-
-这一区别保留在源码中，便于比较“事件已提交”和“事件提交后立即让出 CPU”两种路径。
-
-## 对应工程
-
-- [Interrupt Priority](../projects/03-interrupt-priority/)
-- [ISR-to-Task Index](../projects/10-isr-task-communication/)
-- [Integrated Reference Project](../projects/11-system-reference/)
+是否请求即时切换取决于 `pxHigherPriorityTaskWoken` 和端口宏的使用。设计审查需要区分“事件已提交”与“事件提交后立即让出 CPU”；当前默认分支不包含可运行示例来证明其中任一路径。
 
 ## 相关内容
 

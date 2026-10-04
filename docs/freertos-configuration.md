@@ -2,9 +2,9 @@
 
 > [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md) · [中断边界](cortex-m-interrupts.md) · [内存管理](memory-management.md)
 
-`FreeRTOSConfig.h` 把硬件时钟、内核行为和可用 API 连接起来。下表基于仓库代表工程，不把单个工程的取值外推为所有平台的统一配置。
+`FreeRTOSConfig.h` 把硬件时钟、内核行为和可用 API 连接起来。下表给出设计审查时应确认的代表关系，不表示当前仓库包含对应配置文件。
 
-| 配置项 | 代表取值 | 内核行为与工程影响 |
+| 配置项 | 示例取值 | 内核行为与工程影响 |
 | --- | --- | --- |
 | `configCPU_CLOCK_HZ` | `SystemCoreClock` | 为 Cortex-M port 的时基配置提供 CPU 时钟基准 |
 | `configTICK_RATE_HZ` | `1000` | 形成 1 ms scheduler time base，影响 delay 分辨率和 Software Timer 的时间基准 |
@@ -42,11 +42,9 @@ configMAX_SYSCALL_INTERRUPT_PRIORITY
 whether ISR may call FreeRTOS FromISR API
 ```
 
-## 对应工程与配置差异
+## 配置差异边界
 
-- 常规主线配置：`projects/**/course/**/FreeRTOS/FreeRTOSConfig.h`
-- RTE 模板与综合参考：`Project/RTE/RTOS/FreeRTOSConfig.h`
-- Task Notification 工程使用较小的 `configMAX_PRIORITIES`，说明配置应随工程读取，不能只引用单一模板。
+具体取值必须随目标 MCU、FreeRTOS 版本、端口层和应用负载重新核对，不能把本文示例外推为可构建配置或性能证明。
 
 ## 相关内容
 
