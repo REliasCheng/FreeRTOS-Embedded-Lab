@@ -2,7 +2,11 @@
 
 > [仓库首页](../README.md) · [FreeRTOSConfig](freertos-configuration.md)
 
-## 主线平台
+## 当前可复现 Host 工程
+
+当前仓库使用固定的官方 FreeRTOS V11.3.2 Kernel。Linux 构建选官方 `GCC_POSIX` Port，Windows/MinGW 构建选官方 `MSVC_MINGW` Port；CMake、Demo、测试和限制见[运行工程说明](rtos-runtime-foundation.md)。这些 Host 路径不需要 GD32/STM32 厂商库，也不产生目标固件。
+
+## 历史 Cortex-M 参考平台
 
 - MCU：GD32F407VE（ARM Cortex-M4）
 - 通知工程：GD32F470ZG（ARM Cortex-M4）
@@ -11,7 +15,7 @@
 - Device Family Pack：GigaDevice GD32F4xx DFP
 - Peripheral library：GD32 Standard Peripheral Library
 
-当前默认分支不包含 FreeRTOS Kernel、厂商库、启动文件或 Keil 工程。以下步骤仅适用于未来从官方渠道取得依赖后创建的个人工程。
+当前默认分支通过 Git 子模块引入官方 FreeRTOS Kernel，但不包含厂商库、启动文件或 Keil 工程。以下步骤仅适用于未来从官方渠道取得目标依赖后创建的个人工程。
 
 ## 建立个人工程
 
@@ -23,11 +27,11 @@
 
 ## 工程文件边界
 
-未来工程需要自行配置 `.uvprojx`、启动文件、链接脚本、BSP、vendor library、FreeRTOS Kernel 与 `FreeRTOSConfig.h`。这些文件当前均未在仓库分发。
+未来目标工程需要自行配置 `.uvprojx` 或其他构建入口、启动文件、链接脚本、BSP、vendor library、相应 Cortex-M FreeRTOS Port 与目标专用 `FreeRTOSConfig.h`。当前 Host 配置不能直接充当目标配置。
 
 ## 工程检查状态
 
-当前默认分支只提供架构文档与自绘 SVG，没有可执行的 Keil 构建入口。构建与板端运行记录需要在未来实现、对应工具链和硬件环境中产生。
+当前默认分支已有可执行的 Host Kernel 工程，但没有可执行的 Keil 或其他 Cortex-M 目标构建入口。目标构建与板端运行记录需要在未来匹配的工具链和硬件环境中产生。
 
 ## 相关内容
 

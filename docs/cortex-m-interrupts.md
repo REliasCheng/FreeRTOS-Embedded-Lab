@@ -45,7 +45,7 @@ BaseType_t task_woken = pdFALSE;
 portYIELD_FROM_ISR(task_woken);
 ```
 
-是否请求即时切换取决于 `pxHigherPriorityTaskWoken` 和端口宏的使用。设计审查需要区分“事件已提交”与“事件提交后立即让出 CPU”；当前默认分支不包含可运行示例来证明其中任一路径。
+是否请求即时切换取决于 `pxHigherPriorityTaskWoken` 和端口宏的使用。设计审查需要区分“事件已提交”与“事件提交后立即让出 CPU”；当前[Host 运行工程](rtos-runtime-foundation.md)只验证任务上下文 Queue 与 Notification，不调用 `FromISR`，因此不证明真实中断路径。
 
 ## 相关内容
 

@@ -22,7 +22,9 @@ very short atomic work → Critical Section
 
 Mutex 用于保护共享资源，并具有面向任务所有权的语义。FreeRTOS Mutex 支持 Priority Inheritance，降低低优先级任务持锁时阻塞高优先级任务造成的优先级反转影响。
 
-Recursive Mutex 允许同一任务多次取得同一把锁，但必须匹配次数释放。当前仓库没有实现或优先级反转时序测量记录。
+Recursive Mutex 允许同一任务多次取得同一把锁，但必须匹配次数释放。当前仓库没有 Recursive Mutex 实现或优先级反转时序测量记录。
+
+当前[Host 工程](rtos-runtime-foundation.md)使用普通 FreeRTOS Mutex 保护多个任务共享的统计与结果，并检查零等待获取失败时不写入。没有进行优先级反转或实时锁等待测量。
 
 ## Critical Section
 

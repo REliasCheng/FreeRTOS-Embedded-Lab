@@ -2,7 +2,7 @@
 
 > [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md) · [内存管理](memory-management.md)
 
-本文将任务生命周期拆成独立步骤，便于理解创建方式、状态迁移和句柄的作用。当前默认分支不包含实现工程。
+本文将任务生命周期拆成独立步骤，便于理解创建方式、状态迁移和句柄的作用。当前[Host 工程](rtos-runtime-foundation.md)以真正的 FreeRTOS Kernel 创建并运行三个应用任务；以下 Cortex-M 说明仍是目标设计参考。
 
 ![Task state flow](../assets/images/diagram/task-state-flow.svg)
 
@@ -27,7 +27,7 @@
 
 ## 优先级
 
-任务创建时需要明确优先级，并评估高优先级任务就绪后的抢占关系。当前仓库没有运行时优先级调整的实现证据。
+任务创建时需要明确优先级，并评估高优先级任务就绪后的抢占关系。Host 工程使用固定优先级 3/2/1；没有运行时优先级调整或 Cortex-M 抢占时序证据。
 
 ## 相关内容
 

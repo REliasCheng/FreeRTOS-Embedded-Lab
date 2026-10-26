@@ -2,11 +2,24 @@
 
 ## Current Default Branch
 
-The current default branch distributes no FreeRTOS Kernel source, portable layer, CMSIS copy, GigaDevice vendor library, Keil/RTE project, course application, system-reference project, external image, font, or binary component.
+The repository includes the official FreeRTOS Kernel as a Git submodule at
+`third_party/FreeRTOS-Kernel`, pinned to V11.3.2 commit
+`8a59a4b19bf72977819feddef87d41163ced7004`. Its upstream URL is
+https://github.com/FreeRTOS/FreeRTOS-Kernel and its own MIT license is at
+[`third_party/FreeRTOS-Kernel/LICENSE.md`](third_party/FreeRTOS-Kernel/LICENSE.md).
+This repository's root MIT license does not reassign Kernel authorship.
+
+The current branch distributes no CMSIS copy, GigaDevice vendor library,
+Keil/RTE project, course application, system-reference project, external
+image, font, or binary component. The `app/`, `include/`, `tests/`,
+`CMakeLists.txt`, and CI integration files are newly authored for this
+repository; no course application code was copied.
 
 ## Referenced Technologies
 
-Documentation refers to FreeRTOS and ARM Cortex-M concepts and API names for architectural explanation. Those references do not include or relicense the FreeRTOS Kernel, ARM software, vendor SDKs, or toolchain components.
+Documentation also refers to ARM Cortex-M, CMSIS, GD32/STM32, and Keil
+concepts. Those references do not include or relicense ARM software, vendor
+SDKs, or toolchain components.
 
 ## Excluded Source Material
 
