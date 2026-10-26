@@ -17,6 +17,11 @@ set(FREERTOS_HEAP 4 CACHE STRING "Official FreeRTOS heap implementation" FORCE)
 add_library(freertos_config INTERFACE)
 target_include_directories(freertos_config SYSTEM INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 add_subdirectory(third_party/FreeRTOS-Kernel)
+if(UNIX)
+    # The upstream POSIX port uses robust pthread and clock interfaces.
+    # Keep the feature macro confined to that port; application C stays C11.
+    target_compile_definitions(freertos_kernel_port PRIVATE _GNU_SOURCE)
+endif()
 
 add_library(sample_processing STATIC app/sample_processing.c)
 target_include_directories(sample_processing PUBLIC include)
