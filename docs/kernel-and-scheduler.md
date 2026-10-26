@@ -2,7 +2,7 @@
 
 > [仓库首页](../README.md) · [任务管理](task-management.md) · [中断与 FreeRTOS](cortex-m-interrupts.md) · [配置关系](freertos-configuration.md)
 
-本文以 FreeRTOS V10.5.1 概念为参考。任务不是顺序执行的函数集合，而是由内核维护状态、优先级、栈和调度关系的执行单元。当前默认分支不包含该内核或示例工程。
+历史课程资料以 FreeRTOS V10.5.1 为参考；当前[可执行 Host 工程](rtos-runtime-foundation.md)固定官方 V11.3.2 Kernel。任务不是顺序执行的函数集合，而是由内核维护状态、优先级、栈和调度关系的执行单元。
 
 ```text
 Cortex-M exceptions → kernel tick / context switch → task states → application work

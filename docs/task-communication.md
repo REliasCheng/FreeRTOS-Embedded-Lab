@@ -14,6 +14,8 @@
 
 Queue 复制固定大小的数据项并保持先入先出顺序，可用于分离 UART 接收、协议解析与发送任务。
 
+当前[Host 运行工程](rtos-runtime-foundation.md)使用容量为四个 `SampleInput` 的真实 FreeRTOS Queue，在正常、满队列和接收超时场景中检查数据及返回值。
+
 适用：生产者和消费者之间需要传递数据，或需要缓冲突发输入。
 
 ## Event Group
@@ -27,6 +29,8 @@ Event Group 用多个 bit 表达独立事件或组合条件。任务可以等待
 Task Notification 将 32-bit 通知值直接存放在目标任务的 TCB 中，可表达计数、覆盖/非覆盖写值与置位等模式。
 
 适用：接收方固定、追求低开销，并且一个通知值足以表示事件或数据的任务间通信。
+
+当前 Host 工程以 `xTaskNotifyGive()` 和 `ulTaskNotifyTake()` 实测结果与任务完成的计数通知；没有从任务上下文调用 `FromISR` API。
 
 ## 与 Semaphore 的区别
 

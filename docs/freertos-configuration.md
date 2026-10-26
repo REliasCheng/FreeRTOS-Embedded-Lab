@@ -2,7 +2,7 @@
 
 > [仓库首页](../README.md) · [内核与调度](kernel-and-scheduler.md) · [中断边界](cortex-m-interrupts.md) · [内存管理](memory-management.md)
 
-`FreeRTOSConfig.h` 把硬件时钟、内核行为和可用 API 连接起来。下表给出设计审查时应确认的代表关系，不表示当前仓库包含对应配置文件。
+`FreeRTOSConfig.h` 把硬件时钟、内核行为和可用 API 连接起来。当前仓库包含[Host 专用配置](../include/FreeRTOSConfig.h)；下表是历史 Cortex-M 课程配置的设计参考，不是 Host 工程的实际取值或可直接移植的目标配置。
 
 | 配置项 | 示例取值 | 内核行为与工程影响 |
 | --- | --- | --- |
@@ -44,7 +44,7 @@ whether ISR may call FreeRTOS FromISR API
 
 ## 配置差异边界
 
-具体取值必须随目标 MCU、FreeRTOS 版本、端口层和应用负载重新核对，不能把本文示例外推为可构建配置或性能证明。
+具体取值必须随目标 MCU、FreeRTOS 版本、端口层和应用负载重新核对，不能把本文示例或 Host 配置外推为可构建的目标固件配置或性能证明。Host 工程的实际配置和资源生命周期见[运行工程说明](rtos-runtime-foundation.md)。
 
 ## 相关内容
 

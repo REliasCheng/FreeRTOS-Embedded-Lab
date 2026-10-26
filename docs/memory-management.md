@@ -31,7 +31,7 @@ Task / Queue / Semaphore / Timer objects
 
 ## 范围
 
-本文档聚焦 `heap_4.c` 的分配、释放和相邻空闲块合并机制；当前默认分支没有分发任何 FreeRTOS heap 源码。
+本文档聚焦 `heap_4.c` 的分配、释放和相邻空闲块合并机制；当前[Host 运行工程](rtos-runtime-foundation.md)通过固定提交的官方 Kernel 子模块构建该实现，配置 64 KiB FreeRTOS heap，并检查创建失败。该数值尚未经过目标 MCU 的内存预算或栈高水位测量。
 
 ## 相关内容
 

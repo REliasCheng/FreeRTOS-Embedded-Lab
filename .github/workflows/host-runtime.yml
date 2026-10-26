@@ -1,0 +1,55 @@
+name: FreeRTOS Host runtime
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  kernel:
+    name: Kernel and IPC (${{ matrix.compiler }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v5.1.0
+        with:
+          submodules: recursive
+      - name: Configure and build official GCC_POSIX Kernel and application
+        run: |
+          cmake -S . -B build -G Ninja -DCMAKE_BUILD_TYPE=Debug \
+            -DCMAKE_C_COMPILER=${{ matrix.compiler }}
+          cmake --build build --parallel
+      - name: Run logic and genuine Kernel scenarios
+        run: ctest --test-dir build --output-on-failure
+      - name: Repeat the three bounded Kernel scenarios
+        run: |
+          for scenario in normal backpressure timeout; do
+            for attempt in 1 2 3; do
+              timeout 10s ./build/rtos_demo "$scenario"
+            done
+          done
+
+  application-sanitizer:
+    name: Application logic (${{ matrix.sanitizer }})
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        sanitizer: [address, undefined]
+    steps:
+      - uses: actions/checkout@v5.1.0
+      - name: Build and run independent application tests under sanitizer
+        run: |
+          gcc -std=c11 -Wall -Wextra -Werror -pedantic -g -O1 \
+            -fno-omit-frame-pointer -fno-sanitize-recover=all \
+            -fsanitize=${{ matrix.sanitizer }} -I include \
+            app/sample_processing.c tests/test_processing.c -o test_processing_san
+          ./test_processing_san

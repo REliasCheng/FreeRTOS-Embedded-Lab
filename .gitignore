@@ -29,3 +29,6 @@ RTE/_Build/
 Thumbs.db
 Desktop.ini
 
+# Host CMake output
+build/
+build-*/
